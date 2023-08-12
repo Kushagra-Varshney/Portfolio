@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;500&family=Roboto:wght@500&display=swap');
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --primary-text-color: #bdbddd;
+    --secondary-text-color: #90a0d9;
+    --accent-color: #48cae4;
+    --accent-color-dark: #1d69a3;
+    --background-color-dark: #23283e;
+    --skill-bg-color: #2a2f4c;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body{
+    background-color: var(--background-color-dark);
+    color: var(--primary-text-color);
+    font-family: "Poppins", sans-serif;
+}
+
+a{
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    color: var(--primary-text-color);
+}
+  
+.hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-text-color);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+  
+.hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.container {
+    max-width: 1100px;
+    margin-inline: auto;
+    overflow: hidden;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+nav{
+    top: 0;
+    z-index: 99;
+    left: 0;
+    right: 0;
+}
+
+.main-nav{
+    justify-content: space-between;
+    padding-block: 8px;
+    height: 128px;
+}
+
+
+.nav-logo {
+    width: 50px;
+}
+
+.toggle-theme{
+    width: 30px;
+    filter: invert(86%) sepia(14%) saturate(1176%) hue-rotate(195deg) brightness(94%) contrast(83%);
+}
+.nav-links ul{
+    gap: 16px;
+}
+
+.nav-item {
+    color: var(--primary-text-color);
+}
+
+.main-heading-section {
+    justify-content: center;
+    font-size: 3rem;
+    flex-direction: column;
+    height: 85vh;
+}
+
+.name {
+    color: var(--secondary-text-color);
+}
+
+.dev-heading {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid rgb(255, 255, 255); /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+    typing 3.5s steps(30, end),
+    blink-caret .5s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 60% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: rgb(255, 255, 255) }
+  }
+
+.profile-summary {
+    font-size: 1rem;
+    margin-top: 30px;
+}
+
+.buttons {
+    margin-top: 20px;
+    align-items: end;
+}
+
+.resume-button {
+    background-color: var(--background-color-dark);
+    border: 2px solid var(--secondary-text-color);
+    color: var(--primary-text-color);
+    padding-block: 15px;
+    padding-inline: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.5s ease-in-out;
+    transform: translateY(-10px);
+}
+
+.resume-button:hover {
+    background-color: var(--primary-text-color);
+    color: var(--background-color-dark);
+    cursor: pointer;
+}
+
+.project-container {
+    font-size: 1.5rem;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.project-heading {
+    margin-bottom: 40px;
+}
+
+.project-card-container {
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.project-description-card {
+    padding: 20px;
+    flex-direction: column;
+    flex-basis: 33%;
+    max-width: 300px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+}
+
+.project-description-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 0px 10px 2px var(--secondary-text-color);
+}
+
+.project-description-card img {
+    height: 20px;
+    margin-block: 10px;
+}
+
+.project-description-card p {
+    margin-top: 15px;
+    font-size: 1rem;
+    min-height: 150px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+}
+
+.card-logo-div {
+    min-width: 200px;
+    justify-content: space-evenly;
+}
+
+.skills-container {
+    flex-direction: column;
+    height: fit-content;
+    margin-bottom: 30px;
+}
+
+.skills-heading {
+    margin-top: 30px;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.skill-card-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 600px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.skill-card {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    background-color: var(--skill-bg-color);
+    color: var(--primary-text-color);
+    padding-inline: 25px;
+    padding-block: 15px;
+    margin: 5px;
+    font-family: "Roboto", sans-serif;
+    transition: background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+}
+
+.skill-card:hover {
+    background-color: var(--primary-text-color);
+    color: var(--background-color-dark);
+    cursor: pointer;
+}
+
+.contact-container {
+    justify-content: center;
+    flex-direction: column;
+    height: 30vh;
+}
+
+.contact-heading {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+.contact-options {
+    flex-direction: row;
+    height: fit-content;
+    gap: 50px;
+}
+
+
+
+
+
