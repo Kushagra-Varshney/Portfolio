@@ -272,7 +272,44 @@ nav{
     gap: 50px;
 }
 
+@media (max-width: 394px) {
+    .main-heading-section {
+        justify-content: center;
+        font-size: 1.5rem;
+        padding: 10px;
+        height: fit-content;
+    }
 
+    .dev-heading {
+        font-size: 1rem;
+        animation: none;
+        white-space: wrap;
+        margin-inline: 20px;
+        border-right: none;
+    }
+
+    .profile-summary-section p {
+        margin-inline: 15px;
+        margin-bottom: 10px;
+    }
+
+    .resume-button {
+        padding: 10px;
+        margin: 0px;
+    }
+
+    .buttons {
+        display: flex;
+        width: 300px;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .project-heading {
+        margin-top: 20px;
+    }
+}
 
 
 
