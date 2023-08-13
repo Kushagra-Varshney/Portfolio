@@ -19,6 +19,7 @@ function changeTheme() {
         root.style.setProperty('--skill-bg-color', 'white')
         root.style.setProperty('--skill-hover-color', '#1e3a8a')
         root.style.setProperty('--resume-hover-color', '#1e3a8a')
+        root.style.setProperty('--hlt-color', '#1e3a8a')
         themeButton.className = 'fa-solid fa-moon fa-lg'
         themeButton.style.color = '#1e3a8a'
         codeLogo.style.color = '#1e3a8a'
@@ -34,6 +35,7 @@ function changeTheme() {
         root.style.setProperty('--skill-bg-color', '#2a2f4c')
         root.style.setProperty('--skill-hover-color', '#bdbddd')
         root.style.setProperty('--resume-hover-color', '#bdbddd')
+        root.style.setProperty('--hlt-color', 'white')
         themeButton.className = 'fa-solid fa-sun fa-lg'
         themeButton.style.color = '#bdbddd'
         codeLogo.style.color = '#bdbddd'

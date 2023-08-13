@@ -16,6 +16,7 @@
     --skill-bg-color: #2a2f4c;
     --skill-hover-color: #bdbddd;
     --resume-hover-color: #bdbddd;
+    --hlt-color: white;
 }
 
 html {
@@ -73,7 +74,7 @@ ul {
 
 .hlt{
     font-weight: 400;
-    color: white;
+    color: var(--hlt-color);
 }
 
 nav{
