@@ -14,6 +14,8 @@
     --accent-color-dark: #1d69a3;
     --background-color-dark: #23283e;
     --skill-bg-color: #2a2f4c;
+    --skill-hover-color: #bdbddd;
+    --resume-hover-color: #bdbddd;
 }
 
 html {
@@ -92,9 +94,8 @@ nav{
     width: 50px;
 }
 
-.toggle-theme{
-    width: 30px;
-    filter: invert(86%) sepia(14%) saturate(1176%) hue-rotate(195deg) brightness(94%) contrast(83%);
+#theme-toggle:hover{
+    cursor: pointer;
 }
 .nav-links ul{
     gap: 16px;
@@ -119,7 +120,7 @@ nav{
     font-size: 1.5rem;
     margin-top: 20px;
     overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: .15em solid rgb(255, 255, 255); /* The typwriter cursor */
+    border-right: .15em solid var(--primary-text-color); /* The typwriter cursor */
     white-space: nowrap; /* Keeps the content on a single line */
     letter-spacing: .15em; /* Adjust as needed */
     animation: 
@@ -135,7 +136,7 @@ nav{
   /* The typewriter cursor effect */
   @keyframes blink-caret {
     from, to { border-color: transparent }
-    50% { border-color: rgb(255, 255, 255) }
+    50% { border-color:var(--primary-text-color) }
   }
 
 .profile-summary {
@@ -161,7 +162,7 @@ nav{
 }
 
 .resume-button:hover {
-    background-color: var(--primary-text-color);
+    background-color: var(--resume-hover-color);
     color: var(--background-color-dark);
     cursor: pointer;
 }
@@ -250,7 +251,7 @@ nav{
 }
 
 .skill-card:hover {
-    background-color: var(--primary-text-color);
+    background-color: var(--skill-hover-color);
     color: var(--background-color-dark);
     cursor: pointer;
 }
