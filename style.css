@@ -27,6 +27,7 @@ body{
     background-color: var(--background-color-dark);
     color: var(--primary-text-color);
     font-family: "Poppins", sans-serif;
+    transition: background-color 0.3s ease-in-out;
 }
 
 a{
@@ -93,6 +94,10 @@ nav{
 
 .nav-logo {
     width: 50px;
+}
+
+#theme-toggle {
+    transition: all 0.5s ease-in-out;
 }
 
 #theme-toggle:hover{
