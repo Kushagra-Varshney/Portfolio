@@ -926,8 +926,8 @@
             </div>
 
             <div class="name-block">
-                <h1>hey, i'm kushagra.<br>i build <span class="accent">systems</span> that don't fall over<span
-                        class="cursor"></span></h1>
+                <h1>hey, i'm kushagra.<br>i build <span class="accent">systems</span><span
+                        class="cursor"></span><br>that don't fall over.</h1>
                 <p class="tagline">
                     SDE at <span class="hl">Credflow</span>, working on multi-tenant architecture, Kafka-based async
                     pipelines,
@@ -1271,29 +1271,7 @@
         const words = ['systems', 'pipelines', 'interfaces', 'abstractions', 'products'];
         const accent = document.querySelector('h1 .accent');
         if (accent) {
-            // lock width to the widest word to prevent layout shift
-            accent.style.display = 'inline-block';
-            accent.style.textAlign = 'left';
             accent.style.transition = 'opacity .2s';
-            accent.style.verticalAlign = 'baseline';
-
-            const measure = () => {
-                const probe = document.createElement('span');
-                const cs = getComputedStyle(accent);
-                probe.style.cssText = `
-        position:absolute; visibility:hidden; white-space:nowrap;
-        font: ${cs.font}; letter-spacing: ${cs.letterSpacing};
-        font-weight: ${cs.fontWeight};
-      `;
-                document.body.appendChild(probe);
-                let max = 0;
-                for (const w of words) { probe.textContent = w; max = Math.max(max, probe.getBoundingClientRect().width); }
-                document.body.removeChild(probe);
-                accent.style.minWidth = Math.ceil(max) + 'px';
-            };
-            measure();
-            window.addEventListener('resize', measure);
-
             let i = 0;
             setInterval(() => {
                 i = (i + 1) % words.length;
