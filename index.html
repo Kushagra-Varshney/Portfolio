@@ -1,227 +1,1202 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kushagra Varshney</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kushagra.varshney — swe / systems / ai</title>
+    <meta name="description"
+        content="Kushagra Varshney — Software Engineer building distributed systems, AI pipelines, and clean interfaces." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0d10;
+            --bg-soft: #111418;
+            --bg-card: #0f1216;
+            --line: #1c2128;
+            --line-2: #262b33;
+            --fg: #d7dde4;
+            --fg-dim: #8a919c;
+            --fg-mute: #5a6069;
+            --accent: #7ee787;
+            /* terminal green */
+            --accent-2: #79c0ff;
+            /* soft blue */
+            --accent-3: #ffa657;
+            /* warm amber */
+            --red: #ff7b72;
+            --purple: #d2a8ff;
+            --radius: 6px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* subtle grid background */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line) 1px, transparent 1px);
+            background-size: 48px 48px;
+            opacity: 0.25;
+            mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.8) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .wrap {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ------- Top bar (like an editor statusbar) ------- */
+        .topbar {
+            position: sticky;
+            top: 0;
+            background: rgba(11, 13, 16, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+            z-index: 50;
+            font-size: 12px;
+        }
+
+        .topbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 32px;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .topbar-left {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            color: var(--fg-dim);
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot.r {
+            background: #ff5f57;
+        }
+
+        .dot.y {
+            background: #febc2e;
+        }
+
+        .dot.g {
+            background: #28c840;
+        }
+
+        .dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .path {
+            color: var(--fg-dim);
+        }
+
+        .path span {
+            color: var(--accent-2);
+        }
+
+        .topbar-right {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            color: var(--fg-dim);
+        }
+
+        .topbar-right a {
+            color: var(--fg-dim);
+            text-decoration: none;
+            transition: color .15s;
+        }
+
+        .topbar-right a:hover {
+            color: var(--accent);
+        }
+
+        /* ------- Hero / neofetch-style intro ------- */
+        .hero {
+            padding: 80px 0 64px;
+            border-bottom: 1px dashed var(--line-2);
+        }
+
+        .prompt-line {
+            color: var(--fg-mute);
+            margin-bottom: 8px;
+        }
+
+        .prompt-line .usr {
+            color: var(--accent);
+        }
+
+        .prompt-line .at {
+            color: var(--fg-mute);
+        }
+
+        .prompt-line .host {
+            color: var(--accent-2);
+        }
+
+        .prompt-line .sym {
+            color: var(--purple);
+            margin-right: 6px;
+        }
+
+        .prompt-line .cmd {
+            color: var(--fg);
+        }
+
+        .neofetch {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 40px;
+            margin-top: 20px;
+            align-items: start;
+        }
+
+        .ascii {
+            color: var(--accent);
+            font-size: 11px;
+            line-height: 1.15;
+            white-space: pre;
+            opacity: 0.95;
+            text-shadow: 0 0 22px rgba(126, 231, 135, 0.15);
+        }
+
+        .info {
+            display: grid;
+            gap: 4px;
+            font-size: 13px;
+        }
+
+        .info .k {
+            color: var(--accent);
+            font-weight: 600;
+            display: inline-block;
+            min-width: 130px;
+        }
+
+        .info .sep {
+            color: var(--fg-mute);
+        }
+
+        .info .v {
+            color: var(--fg);
+        }
+
+        .info .v .pill {
+            display: inline-block;
+            border: 1px solid var(--line-2);
+            padding: 1px 6px;
+            border-radius: 3px;
+            margin-right: 4px;
+            font-size: 11px;
+            color: var(--fg-dim);
+        }
+
+        .name-block {
+            margin-top: 32px;
+            border-top: 1px dashed var(--line-2);
+            padding-top: 28px;
+        }
+
+        h1 {
+            font-size: clamp(28px, 4.5vw, 42px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--fg);
+            line-height: 1.15;
+        }
+
+        h1 .accent {
+            color: var(--accent);
+        }
+
+        .tagline {
+            margin-top: 10px;
+            color: var(--fg-dim);
+            font-size: 14px;
+            max-width: 640px;
+        }
+
+        .tagline .hl {
+            color: var(--accent-2);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 9px;
+            height: 18px;
+            background: var(--accent);
+            margin-left: 4px;
+            vertical-align: -3px;
+            animation: blink 1s steps(2) infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .cta-row {
+            margin-top: 24px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: 1px solid var(--line-2);
+            color: var(--fg);
+            background: transparent;
+            padding: 8px 14px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-size: 13px;
+            font-family: inherit;
+            transition: all .15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(126, 231, 135, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .btn.primary {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn.primary:hover {
+            background: rgba(126, 231, 135, 0.1);
+        }
+
+        /* ------- Sections ------- */
+        section {
+            padding: 72px 0;
+            border-bottom: 1px dashed var(--line-2);
+        }
+
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .section-head .num {
+            color: var(--accent-3);
+            font-size: 13px;
+        }
+
+        .section-head h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--fg);
+            letter-spacing: -0.01em;
+        }
+
+        .section-head .rule {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--line-2), transparent);
+        }
+
+        /* ------- About ------- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .about p {
+            color: var(--fg-dim);
+            max-width: 720px;
+            margin-bottom: 14px;
+            font-size: 14px;
+        }
+
+        .about p .hl {
+            color: var(--fg);
+            font-weight: 500;
+        }
+
+        .about p .g {
+            color: var(--accent);
+        }
+
+        .about p .b {
+            color: var(--accent-2);
+        }
+
+        /* ------- Experience ------- */
+        .exp-item {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 32px;
+            padding: 24px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .exp-item:first-child {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .exp-time {
+            color: var(--fg-mute);
+            font-size: 12px;
+            padding-top: 3px;
+        }
+
+        .exp-time .current {
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .exp-time .current::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        .exp-role {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--fg);
+            margin-bottom: 2px;
+        }
+
+        .exp-company {
+            color: var(--accent-2);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .exp-company .loc {
+            color: var(--fg-mute);
+            margin-left: 6px;
+        }
+
+        .exp-bullets {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+
+        .exp-bullets li {
+            color: var(--fg-dim);
+            font-size: 13px;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .exp-bullets li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .exp-bullets li b {
+            color: var(--fg);
+            font-weight: 500;
+        }
+
+        .exp-bullets li .metric {
+            color: var(--accent-3);
+            font-weight: 500;
+        }
+
+        /* ------- Projects ------- */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .proj-card {
+            background: var(--bg-card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 20px;
+            transition: all .2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .proj-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(126, 231, 135, 0.06), transparent 60%);
+            opacity: 0;
+            transition: opacity .2s;
+            pointer-events: none;
+        }
+
+        .proj-card:hover {
+            border-color: var(--line-2);
+            transform: translateY(-2px);
+        }
+
+        .proj-card:hover::before {
+            opacity: 1;
+        }
+
+        .proj-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .proj-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--fg);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .proj-title .folder {
+            color: var(--accent-3);
+        }
+
+        .proj-card.featured {
+            border-color: var(--line-2);
+            background:
+                linear-gradient(180deg, rgba(126, 231, 135, 0.03), transparent 60%),
+                var(--bg-card);
+        }
+
+        .proj-card.featured::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.6;
+        }
+
+        .status-badge {
+            font-size: 10px;
+            font-weight: 500;
+            padding: 2px 7px;
+            border-radius: 3px;
+            margin-left: 6px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .status-badge.wip {
+            color: var(--accent-3);
+            background: rgba(255, 166, 87, 0.08);
+            border: 1px solid rgba(255, 166, 87, 0.25);
+            animation: wip-pulse 2.4s ease-in-out infinite;
+        }
+
+        @keyframes wip-pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.55;
+            }
+        }
+
+        .proj-link {
+            color: var(--fg-mute);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color .15s;
+        }
+
+        .proj-link:hover {
+            color: var(--accent);
+        }
+
+        .proj-desc {
+            color: var(--fg-dim);
+            font-size: 13px;
+            margin-bottom: 14px;
+            min-height: 58px;
+        }
+
+        .proj-stack {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            font-size: 11px;
+            color: var(--fg-dim);
+            border: 1px solid var(--line-2);
+            padding: 2px 7px;
+            border-radius: 3px;
+        }
+
+        /* ------- Skills ------- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .skill-block {
+            background: var(--bg-card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+        }
+
+        .skill-title {
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            letter-spacing: 0.05em;
+        }
+
+        .skill-title .hash {
+            color: var(--fg-mute);
+            margin-right: 4px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .skill-list .chip {
+            background: transparent;
+        }
+
+        .skill-list .chip:hover {
+            color: var(--fg);
+            border-color: var(--accent-2);
+        }
+
+        /* ------- Contact ------- */
+        .contact {
+            padding: 80px 0 40px;
+            text-align: left;
+        }
+
+        .contact h3 {
+            font-size: 28px;
+            color: var(--fg);
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .contact h3 .accent {
+            color: var(--accent);
+        }
+
+        .contact p {
+            color: var(--fg-dim);
+            max-width: 520px;
+            margin-bottom: 24px;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* ------- Footer ------- */
+        footer {
+            padding: 28px 0 40px;
+            border-top: 1px solid var(--line);
+            color: var(--fg-mute);
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        footer .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        footer .status::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 6px var(--accent);
+        }
+
+        /* ------- Responsive ------- */
+        @media (max-width: 720px) {
+            .wrap {
+                padding: 0 20px;
+            }
+
+            .topbar-inner {
+                padding: 10px 20px;
+            }
+
+            .neofetch {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .ascii {
+                font-size: 9px;
+            }
+
+            .exp-item {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .topbar-right {
+                gap: 12px;
+            }
+
+            .info .k {
+                min-width: 110px;
+            }
+        }
+
+        /* selection */
+        ::selection {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        /* scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity .5s ease, transform .5s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
+
 <body>
-    <!-- navbar -->
-    <nav>
-        <div class="main-nav container flex">
-            <a href="#">
-                <!-- <img src="assets/coding-logo.png" alt="icon" class="nav-logo"> -->
-                <i class="fa-solid fa-code fa-2xl" style="color: #bdbddd;" id="code-logo"></i>
-            </a>
 
-            <div class="nav-links">
-                <ul class="flex nav-item-list">
-                    <a href="#projects"><li class="nav-item hover-underline-animation">Projects</li></a>
-                    <a href="#skills"><li class="nav-item hover-underline-animation">Skills</li></a>
-                    <a href="#contact"><li class="nav-item hover-underline-animation">Contact</li></a>
-                    <i class="fa-solid fa-sun fa-lg" id= "theme-toggle"style="color: #bdbddd;"></i></li>
-
-                </ul>
+    <!-- ================== Top bar ================== -->
+    <div class="topbar">
+        <div class="topbar-inner">
+            <div class="topbar-left">
+                <div class="dots">
+                    <span class="dot r"></span>
+                    <span class="dot y"></span>
+                    <span class="dot g"></span>
+                </div>
+                <span class="path">~/<span>kushagra</span>/portfolio</span>
+            </div>
+            <div class="topbar-right">
+                <a href="#about">about</a>
+                <a href="#experience">work</a>
+                <a href="#projects">projects</a>
+                <a href="#skills">stack</a>
+                <a href="#contact">contact</a>
             </div>
         </div>
-    </nav>
+    </div>
 
-    <section class="hero-section" id="hero-section">
-        <div class="main-heading-section container flex">
-            <div class="name-heading">
-                <h3 align ="center">Hi, I am <span class="name">Kushagra Varshney</span></h3>
+    <main class="wrap">
+
+        <!-- ================== Hero ================== -->
+        <section class="hero" id="top">
+            <div class="prompt-line">
+                <span class="usr">kush</span><span class="at">@</span><span class="host">dev</span><span
+                    class="at">:~$</span>
+                <span class="sym">&gt;</span><span class="cmd">neofetch --whoami</span>
             </div>
-            <div class="dev-heading">
-                <h2 align ="center">
-                    Full-Stack / Android Developer
-                </h2>
+
+            <div class="neofetch">
+                <pre class="ascii" aria-hidden="true">
+   ██╗  ██╗██╗   ██╗███████╗██╗  ██╗
+   ██║ ██╔╝██║   ██║██╔════╝██║  ██║
+   █████╔╝ ██║   ██║███████╗███████║
+   ██╔═██╗ ██║   ██║╚════██║██╔══██║
+   ██║  ██╗╚██████╔╝███████║██║  ██║
+   ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+     &gt; building things that scale.</pre>
+
+                <div class="info">
+                    <div><span class="k">user</span><span class="sep"> :: </span><span class="v">kushagra
+                            varshney</span></div>
+                    <div><span class="k">role</span><span class="sep"> :: </span><span class="v">software engineer @
+                            credflow</span></div>
+                    <div><span class="k">location</span><span class="sep"> :: </span><span class="v">noida, india</span>
+                    </div>
+                    <div><span class="k">focus</span><span class="sep"> :: </span><span class="v">distributed systems ·
+                            ai pipelines · full-stack</span></div>
+                    <div><span class="k">shell</span><span class="sep"> :: </span><span class="v">vim-fluent,
+                            tmux-native</span></div>
+                    <div><span class="k">uptime</span><span class="sep"> :: </span><span class="v">shipping since
+                            2020</span></div>
+                    <div><span class="k">cgpa</span><span class="sep"> :: </span><span class="v">9.45 / 10 · b.tech
+                            it</span></div>
+                    <div style="margin-top:8px;">
+                        <span class="k">languages</span><span class="sep"> :: </span>
+                        <span class="v">
+                            <span class="pill">ts</span><span class="pill">js</span><span
+                                class="pill">python</span><span class="pill">c++</span><span
+                                class="pill">sql</span><span class="pill">kotlin</span>
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="profile-summary-section">
-                <p align = "justify" class="profile-summary">
-                    As a final-year student, I am deeply enthusiastic about coding and gaming. I thrive on exploring new challenges and delving into complex problems to find innovative solutions. My passion for learning and personal growth drives me to constantly seek opportunities to expand my skillset.
-                    Currently, I am engrossed in the world of FullStack development. I am dedicated to honing my skills and creating impactful and user-friendly applications.
-                    I have also gained some hands-on experience in web development. I have delved into front-end technologies, allowing me to create interactive and dynamic web experiences.
-                    As I continue on my journey, I am excited to embrace new challenges, learn from each experience, and further develop my skills in both Android and Web development.
+
+            <div class="name-block">
+                <h1>hey, i'm kushagra.<br>i build <span class="accent">systems</span> that don't fall over<span
+                        class="cursor"></span></h1>
+                <p class="tagline">
+                    SDE at <span class="hl">Credflow</span>, working on multi-tenant architecture, Kafka-based async
+                    pipelines,
+                    and AI-driven workflows (LangGraph, Vertex AI). I care about clean abstractions, small blast radii,
+                    and interfaces that don't make engineers cry.
                 </p>
-            </div>
-            <div class="buttons">
-                <a href="https://drive.google.com/file/d/1znzJuVCKHOFV2uWFQNmiNZhz4O89aTn5/view?usp=sharing" target="_blank"><button class="resume-button">
-                    Resume
-                </button></a>
-                <a href="https://github.com/Kushagra-Varshney">
-                    <i class="fa-brands fa-github hover-underline-animation" target="_blank" style="color: #bdbddd; padding: 2px;" id="github-logo"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/varshney-kushagra/" target="_blank">
-                    <i class="fa-brands fa-linkedin hover-underline-animation" style="color: #bdbddd; padding: 2px;" id="linkedin-logo"></i>
-                </a>
-            </div>
-            
-        </div>
-        
-    </section>
 
-    <section class="projects" id="projects">
-        <div class="project-container flex container">
-            <div class="project-heading">
-                <h2>PROJECTS</h2>
+                <div class="cta-row">
+                    <a class="btn primary" href="#projects">./view_projects.sh</a>
+                    <a class="btn" href="mailto:kushagra.ashishvarshney@gmail.com">cat contact.md</a>
+                    <a class="btn" href="https://github.com/Kushagra-Varshney" target="_blank" rel="noopener">github
+                        →</a>
+                    <a class="btn" href="https://linkedin.com/in/varshney-kushagra/" target="_blank"
+                        rel="noopener">linkedin →</a>
+                </div>
             </div>
-            <div class="project-card-container flex">
-                <div class="project-description-card flex">
-                    <h4>Weather Wise</h4>
-                    <p align = "justify" class="project-description">Developed Weather Wise, seamlessly integrating <span class="hlt">Retrofit</span> for API calls and utilizing <span class="hlt">GSON</span> as a converter factory. Facilitated asynchronous data fetching, enhancing user experience and added a <span class="hlt">search</span> functionality allowing users to obtain weather details for specific locations. </p>
-                    <div class="card-logo-div flex">
-                        <img src="assets/kt-logo.png" alt="Kotlin">
-                        <a href="https://github.com/Kushagra-Varshney/WeatherWise" target="_blank"><i class="fa-brands fa-github hover-underline-animation"></i></a>
-                    </div>
-                </div>
-                <div class="project-description-card flex">
-                    <h4>BlogIT</h4>
-                    <p align = "justify" class="project-description">Developed a secure and feature-rich Blog App with user authentication using
-                        <span class="hlt">JWT</span> and <span class="hlt">password hashing.</span>
-                        Used <span class="hlt">MongoDB and Mongoose</span> for efficient CRUD operations.
-                        Integrated <span class="hlt">EJS</span> for dynamic server-side rendering, allowing users to create, read,
-                        update, and delete blogs while engaging in discussions through comments.
-                        </p>
-                    <div class="card-logo-div flex">
-                        <i class="fa-brands fa-node-js"></i>
-                        <img src="assets/mongodb-logo.svg" alt="MongoDB">
-                        <img src="assets/jwt-logo.svg" alt="JWT">
-                        <img src="assets/ejs-logo.svg" alt="EJS">
-                        
-                        <a href="https://github.com/Kushagra-Varshney/BlogIT" target="_blank"><i class="fa-brands fa-github hover-underline-animation"></i></a>
-                    </div>
-                </div>
-                <div class="project-description-card flex">
-                    <h4>EventHub</h4>
-                    <p align = "justify" class="project-description">A <span class="hlt">React</span> app with an <span class="hlt">Express</span> backend, leveraging <span class="hlt">Tanstack</span> for efficient
-                        HTTP queries and <span class="hlt">React Router</span> for navigation.
-                        Empowers users with event management functionality,
-                        including adding, editing, updating, and deleting events.
-                        Implemented a search feature, enhancing accessibility, and enabling
-                        users to find events using specific search queries</p>
-                    <div class="card-logo-div flex">
-                        <i class="fa-brands fa-react"></i>
-                        <i class="fa-brands fa-node-js"></i>
-                        <img src="assets/react-query-logo.png" alt="React Query">
-                        <img src="assets/react-router.svg" alt="React Router">
-                        <a href="https://github.com/Kushagra-Varshney/EventHub" target="_blank"><i class="fa-brands fa-github hover-underline-animation"></i></a>
-                    </div>
-                </div>
-                <div class="project-description-card flex">
-                    <h4>7 Min Workout</h4>
-                    <p align = "justify" class="project-description">Developed the 7 Min Workout app, leveraging the power of <span class="hlt">Jetpack components</span> to deliver a seamless fitness experience. This application incorporates <span class="hlt">Room database, RecyclerViews, and coroutines</span> to provide users with a personalized workout routine and track their progress.</p>
-                    <div class="card-logo-div flex">
-                        <img src="assets/kt-logo.png" alt="Kotlin">
-                        <a href="https://github.com/Kushagra-Varshney/7-Min-Workout-App" target="_blank"><i class="fa-brands fa-github hover-underline-animation"></i></a>
-                    </div>
-                </div>
-                <div class="project-description-card flex">
-                    <h4>Note It App</h4>
-                    <p align = "justify" class="project-description"><span class="hlt">MVVM</span> architecture based Note Taking App adopting modern development principles. The app provides functionalities to add and delete notes. Leverages <span class="hlt">LiveData</span> and the <span class="hlt">Room persistence library</span> for seamless data storage and retrieval. Seamless user experience by utilization of <span class="hlt">coroutines</span> for background IO operations.</p>
-                    <div class="card-logo-div flex">
-                        <img src="assets/kt-logo.png" alt="Kotlin">
-                        <a href="https://github.com/Kushagra-Varshney/NotesApp" target="_blank"><i class="fa-brands fa-github hover-underline-animation"></i></a>
-                    </div>
-                </div>
-                <div class="project-description-card flex">
-                    <h4>Flash News</h4>
-                    <p align = "justify" class="project-description">This project incorporates the use of the <span class="hlt">News API</span> to fetch news articles based on a user's search query and presents them in a <span class="hlt">card format</span> with images. Upon clicking on a card, users are <span class="hlt">redirected</span> to the respective source website for the full article.</p>
-                    <div class="card-logo-div flex">
-                        <i class="fa-brands fa-html5 "></i>
-                        <i class="fa-brands fa-css3 "></i>
-                        <i class="fa-brands fa-js"></i>
-                        <a href="https://github.com/Kushagra-Varshney/The-Flash-News" target="_blank"><i class="fa-brands fa-github hover-underline-animation"></i></a>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="skills" class="skills">
-        <div class="skills-container container flex">
-            <div class="skills-heading container">
-                <h2>SKILLS</h2>
+        <!-- ================== About ================== -->
+        <section id="about" class="about reveal">
+            <div class="section-head">
+                <span class="num">01.</span>
+                <h2>// about</h2>
+                <div class="rule"></div>
             </div>
-            <div class="skill-card-container flex">
-                <div class="skill-card">
-                    <h5>C++</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>ReactJS</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>NodeJS</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>ExpressJS</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>React Router</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>Tanstack Query</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>Redux</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>Kotlin</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>HTML</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>CSS</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>JavaScript</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>Tailwind</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>SQL</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>Java</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>Data Structures</h5>
-                </div>                
-                <div class="skill-card">
-                    <h5>Algorithms</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>OOPs</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>DBMS</h5>
-                </div>
-                <div class="skill-card">
-                    <h5>OS</h5>
-                </div> 
-            </div>
-        </div>
-    </section>
 
-    <section class="contact" id="contact">
-        <div class="contact-container container flex">
-            <div class="contact-heading">
-                <h2>CONTACT ME</h2>
+            <p>
+                I'm a <span class="hl">software engineer</span> who lives closer to the backend but refuses to leave the
+                frontend behind.
+                Most of my day is spent somewhere between <span class="g">Next.js</span>, <span
+                    class="g">FastAPI</span>,
+                <span class="g">Kafka</span> topics, and a slightly-too-clever <span class="b">Postgres</span> query.
+            </p>
+            <p>
+                I like problems where <span class="hl">scale</span>, <span class="hl">correctness</span> and <span
+                    class="hl">developer experience</span>
+                all have to be true at once — multi-tenant architectures, event-driven pipelines, AI workflows that
+                actually hold up in production.
+                I care about <span class="b">clean abstractions</span>, small blast radii, and systems that are boring
+                in the best way.
+            </p>
+            <p>
+                Outside of work I play with <span class="g">AI agents</span> and distributed system design, dive into
+                system design
+                deep-dives and architecture write-ups, and build side projects that scratch my own itch —
+                currently a self-healing CI/CD agent (see below). When I'm not at a keyboard I'm probably gaming.
+            </p>
+        </section>
+
+        <!-- ================== Experience ================== -->
+        <section id="experience" class="reveal">
+            <div class="section-head">
+                <span class="num">02.</span>
+                <h2>// experience</h2>
+                <div class="rule"></div>
             </div>
-            <div class="contact-options flex">
-                <a href="mailto:blazerz.shadow@gmail.com">
-                    <i class="fa-solid fa-envelope fa-3x hover-underline-animation" style="color: #bdbddd; padding: 2px;" id="mail-logo"></i>
-                </a>
-                <a href="https://twitter.com/KushagraVarshn5">
-                    <i class="fa-brands fa-x-twitter fa-3x hover-underline-animation" style="color: #bdbddd; padding: 2px; " id="twitter-logo"></i>
-                </a>
+
+            <div class="exp-item">
+                <div class="exp-time">
+                    <div>Aug 2024 —</div>
+                    <div class="current">present</div>
+                </div>
+                <div>
+                    <div class="exp-role">Software Development Engineer — I</div>
+                    <div class="exp-company">Credflow <span class="loc">· Noida, UP</span></div>
+                    <ul class="exp-bullets">
+                        <li><b>Multi-Tenant Migration:</b> led migration from single-tenant → isolated-DB-per-org;
+                            tenant-aware routing, JWT context propagation, connection pooling — scaled to enterprise
+                            readiness.</li>
+                        <li><b>AI-Driven RM LOS:</b> automated document classification via Kafka pipelines + LangGraph
+                            over Vertex AI; real-time tagging & workflow automation, <span class="metric">-60% manual RM
+                                intervention</span>.</li>
+                        <li><b>AI Underwriting Platform:</b> Kafka-streamed analytics over bureau data, balance sheets,
+                            GSTR-3B filings — automated insights <span class="metric">cut underwriting time
+                                20-30%</span>.</li>
+                        <li><b>Internal LOS Panel:</b> rebuilt in Next.js + TS with role-based workflows, server-driven
+                            rendering, Redis-backed caching over Postgres + Mongo — <span class="metric">+30% RM
+                                efficiency</span>.</li>
+                        <li><b>Document Automation:</b> FastAPI microservice for OCR agreement gen, ingestion, Excel
+                            report automation via async workflows — <span class="metric">-40% processing time, 100+
+                                hrs/mo saved</span>.</li>
+                        <li><b>Legacy Modernization:</b> migrated legacy panels to Next.js / React stack for
+                            maintainability and dev velocity.</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </section>
-    <script src="script.js"></script>
-    <script src="https://kit.fontawesome.com/d2899ac0c7.js" crossorigin="anonymous"></script>
+
+            <div class="exp-item">
+                <div class="exp-time">
+                    <div>Sep 2023 —</div>
+                    <div>Nov 2023</div>
+                </div>
+                <div>
+                    <div class="exp-role">Frontend Developer Intern</div>
+                    <div class="exp-company">edm8ker <span class="loc">· Remote</span></div>
+                    <ul class="exp-bullets">
+                        <li>Built <b>10+ reusable UI components</b> and resolved 25+ UI issues in HTML / CSS / JS /
+                            Tailwind — <span class="metric">+30% dev velocity, +15% engagement</span>.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-time">
+                    <div>2020 —</div>
+                    <div>2024</div>
+                </div>
+                <div>
+                    <div class="exp-role">B.Tech, Information Technology</div>
+                    <div class="exp-company">Bharati Vidyapeeth's College of Engineering <span class="loc">· CGPA
+                            9.45</span></div>
+                    <ul class="exp-bullets">
+                        <li>Coursework in DSA, OS, DBMS, Computer Networks, Distributed Systems.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================== Projects ================== -->
+        <section id="projects" class="reveal">
+            <div class="section-head">
+                <span class="num">03.</span>
+                <h2>// projects</h2>
+                <div class="rule"></div>
+            </div>
+
+            <div class="projects">
+
+                <article class="proj-card featured">
+                    <div class="proj-head">
+                        <div class="proj-title">
+                            <span class="folder">▸</span> baymax
+                            <span class="status-badge wip">● wip</span>
+                        </div>
+                        <a class="proj-link" href="https://github.com/Kushagra-Varshney/Baymax" target="_blank"
+                            rel="noopener">gh ↗</a>
+                    </div>
+                    <p class="proj-desc">
+                        Self-healing CI/CD agent — detects pipeline failures, analyzes logs with an LLM,
+                        generates fixes, validates them in a sandbox, and opens a PR. Autonomous triage for broken
+                        builds.
+                    </p>
+                    <div class="proj-stack">
+                        <span class="chip">TypeScript</span>
+                        <span class="chip">Node.js</span>
+                        <span class="chip">LLM agents</span>
+                        <span class="chip">CI/CD</span>
+                        <span class="chip">sandboxed exec</span>
+                    </div>
+                </article>
+
+                <article class="proj-card">
+                    <div class="proj-head">
+                        <div class="proj-title"><span class="folder">▸</span> distributed-file-monitor</div>
+                        <a class="proj-link" href="https://github.com/Kushagra-Varshney" target="_blank"
+                            rel="noopener">gh ↗</a>
+                    </div>
+                    <p class="proj-desc">
+                        Kafka-based file monitoring system with independently deployable producer, consumer & gateway
+                        services.
+                        MongoDB persistence + Next.js analytics dashboard.
+                    </p>
+                    <div class="proj-stack">
+                        <span class="chip">Kafka</span>
+                        <span class="chip">Node.js</span>
+                        <span class="chip">MongoDB</span>
+                        <span class="chip">Next.js</span>
+                        <span class="chip">microservices</span>
+                    </div>
+                </article>
+
+                <article class="proj-card">
+                    <div class="proj-head">
+                        <div class="proj-title"><span class="folder">▸</span> feedtheback</div>
+                        <a class="proj-link" href="https://github.com/Kushagra-Varshney" target="_blank"
+                            rel="noopener">gh ↗</a>
+                    </div>
+                    <p class="proj-desc">
+                        Anonymous feedback platform with OTP auth & AI-assisted replies using Gemini LLM. Serverless
+                        Next.js deployment.
+                    </p>
+                    <div class="proj-stack">
+                        <span class="chip">Next.js</span>
+                        <span class="chip">Gemini</span>
+                        <span class="chip">serverless</span>
+                        <span class="chip">auth</span>
+                    </div>
+                </article>
+
+                <article class="proj-card">
+                    <div class="proj-head">
+                        <div class="proj-title"><span class="folder">▸</span> reactdocs</div>
+                        <a class="proj-link" href="https://github.com/Kushagra-Varshney" target="_blank"
+                            rel="noopener">gh ↗</a>
+                    </div>
+                    <p class="proj-desc">
+                        Real-time collaborative editor — multi-user sync via Socket.IO with diff-based updates,
+                        reducing data transfer by 10%.
+                    </p>
+                    <div class="proj-stack">
+                        <span class="chip">React</span>
+                        <span class="chip">Socket.IO</span>
+                        <span class="chip">realtime</span>
+                        <span class="chip">diff-sync</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ================== Skills ================== -->
+        <section id="skills" class="reveal">
+            <div class="section-head">
+                <span class="num">04.</span>
+                <h2>// stack</h2>
+                <div class="rule"></div>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-block">
+                    <div class="skill-title"><span class="hash">#</span>languages</div>
+                    <div class="skill-list">
+                        <span class="chip">TypeScript</span>
+                        <span class="chip">JavaScript</span>
+                        <span class="chip">Python</span>
+                        <span class="chip">C/C++</span>
+                        <span class="chip">SQL</span>
+                        <span class="chip">Kotlin</span>
+                        <span class="chip">Java</span>
+                        <span class="chip">HTML/CSS</span>
+                    </div>
+                </div>
+
+                <div class="skill-block">
+                    <div class="skill-title"><span class="hash">#</span>frameworks</div>
+                    <div class="skill-list">
+                        <span class="chip">Next.js</span>
+                        <span class="chip">React</span>
+                        <span class="chip">Node.js</span>
+                        <span class="chip">Express</span>
+                        <span class="chip">FastAPI</span>
+                        <span class="chip">LangChain</span>
+                        <span class="chip">LangGraph</span>
+                    </div>
+                </div>
+
+                <div class="skill-block">
+                    <div class="skill-title"><span class="hash">#</span>infra &amp; tools</div>
+                    <div class="skill-list">
+                        <span class="chip">Docker</span>
+                        <span class="chip">Kubernetes</span>
+                        <span class="chip">Kafka</span>
+                        <span class="chip">AWS</span>
+                        <span class="chip">GitLab CI/CD</span>
+                        <span class="chip">Git</span>
+                        <span class="chip">Vim</span>
+                    </div>
+                </div>
+
+                <div class="skill-block">
+                    <div class="skill-title"><span class="hash">#</span>databases</div>
+                    <div class="skill-list">
+                        <span class="chip">PostgreSQL</span>
+                        <span class="chip">MongoDB</span>
+                        <span class="chip">Redis</span>
+                    </div>
+                </div>
+
+                <div class="skill-block">
+                    <div class="skill-title"><span class="hash">#</span>architecture</div>
+                    <div class="skill-list">
+                        <span class="chip">Microservices</span>
+                        <span class="chip">Multi-Tenant</span>
+                        <span class="chip">Event-Driven</span>
+                        <span class="chip">Async Processing</span>
+                        <span class="chip">Caching</span>
+                        <span class="chip">Idempotency</span>
+                        <span class="chip">JWT Auth</span>
+                    </div>
+                </div>
+
+                <div class="skill-block">
+                    <div class="skill-title"><span class="hash">#</span>fundamentals</div>
+                    <div class="skill-list">
+                        <span class="chip">DSA</span>
+                        <span class="chip">OOP</span>
+                        <span class="chip">DBMS</span>
+                        <span class="chip">OS</span>
+                        <span class="chip">Networks</span>
+                        <span class="chip">Distributed Systems</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================== Contact ================== -->
+        <section id="contact" class="contact reveal">
+            <div class="section-head">
+                <span class="num">05.</span>
+                <h2>// contact</h2>
+                <div class="rule"></div>
+            </div>
+
+            <h3>let's <span class="accent">build</span> something.</h3>
+            <p>
+                I'm open to conversations about backend / distributed systems / AI infra roles, interesting side
+                projects,
+                or just a good architecture debate over coffee.
+            </p>
+
+            <div class="contact-links">
+                <a class="btn primary" href="mailto:kushagra.ashishvarshney@gmail.com">✉ email</a>
+                <a class="btn" href="https://linkedin.com/in/varshney-kushagra/" target="_blank" rel="noopener">linkedin
+                    ↗</a>
+                <a class="btn" href="https://github.com/Kushagra-Varshney" target="_blank" rel="noopener">github ↗</a>
+            </div>
+        </section>
+
+        <!-- ================== Footer ================== -->
+        <footer>
+            <div class="status">online · open to opportunities</div>
+            <div>
+                &copy; <span id="year"></span> kushagra varshney · crafted with <span
+                    style="color:var(--red)">&lt;3</span> &amp; vim
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        // year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // scroll reveal
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // rotating tagline accents (subtle nerd touch)
+        const words = ['systems', 'pipelines', 'interfaces', 'abstractions', 'products'];
+        const accent = document.querySelector('h1 .accent');
+        let i = 0;
+        setInterval(() => {
+            i = (i + 1) % words.length;
+            accent.style.opacity = 0;
+            setTimeout(() => {
+                accent.textContent = words[i];
+                accent.style.opacity = 1;
+            }, 220);
+        }, 2600);
+        if (accent) accent.style.transition = 'opacity .2s';
+
+        // easter egg: konami → green matrix flash
+        let seq = [], code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        document.addEventListener('keydown', (e) => {
+            seq.push(e.key); seq = seq.slice(-code.length);
+            if (seq.join(',') === code.join(',')) {
+                document.body.animate([{ filter: 'hue-rotate(0) saturate(1)' }, { filter: 'hue-rotate(120deg) saturate(2)' }, { filter: 'hue-rotate(0) saturate(1)' }], { duration: 1200 });
+            }
+        });
+
+        // console signature
+        console.log('%c> kush@dev:~$ thanks for checking the console :)', 'color:#7ee787;font-family:monospace;font-size:13px');
+        console.log('%c  drop a line: kushagra.ashishvarshney@gmail.com', 'color:#8a919c;font-family:monospace;font-size:12px');
+    </script>
+
 </body>
+
 </html>
