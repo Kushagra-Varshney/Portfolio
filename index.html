@@ -181,9 +181,15 @@
 
         .mobile-menu {
             display: none;
-            background: rgba(11, 13, 16, 0.97);
-            backdrop-filter: blur(10px);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(11, 13, 16, 0.98);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--line);
+            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.5);
+            z-index: 60;
         }
 
         .mobile-menu.open {
@@ -277,19 +283,27 @@
             font-size: 13px;
         }
 
+        .info>div {
+            display: grid;
+            grid-template-columns: 110px auto 1fr;
+            align-items: baseline;
+            column-gap: 4px;
+        }
+
         .info .k {
             color: var(--accent);
             font-weight: 600;
-            display: inline-block;
-            min-width: 130px;
         }
 
         .info .sep {
             color: var(--fg-mute);
+            white-space: nowrap;
         }
 
         .info .v {
             color: var(--fg);
+            min-width: 0;
+            word-break: break-word;
         }
 
         .info .v .pill {
@@ -297,9 +311,9 @@
             border: 1px solid var(--line-2);
             padding: 1px 6px;
             border-radius: 3px;
-            margin-right: 4px;
             font-size: 11px;
             color: var(--fg-dim);
+            margin: 0 3px 3px 0;
         }
 
         .name-block {
