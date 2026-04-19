@@ -153,6 +153,75 @@
             color: var(--accent);
         }
 
+        /* mobile nav toggle */
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--line-2);
+            color: var(--fg-dim);
+            font-family: inherit;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all .15s;
+        }
+
+        .nav-toggle:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .nav-toggle .sq {
+            display: inline-block;
+            width: 10px;
+            text-align: center;
+            color: var(--accent);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: rgba(11, 13, 16, 0.97);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .mobile-menu.open {
+            display: block;
+        }
+
+        .mobile-menu-inner {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 8px 20px 14px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu a {
+            color: var(--fg-dim);
+            text-decoration: none;
+            padding: 10px 4px;
+            border-bottom: 1px dashed var(--line);
+            font-size: 13px;
+            transition: color .15s;
+        }
+
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a:focus {
+            color: var(--accent);
+        }
+
+        .mobile-menu a::before {
+            content: "▸ ";
+            color: var(--accent);
+            opacity: 0.6;
+        }
+
         /* ------- Hero / neofetch-style intro ------- */
         .hero {
             padding: 80px 0 64px;
@@ -729,12 +798,31 @@
                 gap: 10px;
             }
 
-            .topbar-right {
-                gap: 12px;
-            }
-
             .info .k {
                 min-width: 110px;
+            }
+
+            .path {
+                display: none;
+            }
+
+            .topbar-right a {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .cta-row .btn {
+                font-size: 12px;
+                padding: 7px 10px;
             }
         }
 
@@ -777,8 +865,20 @@
                 <a href="#projects">projects</a>
                 <a href="#skills">stack</a>
                 <a href="#contact">contact</a>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span class="sq" id="navIcon">+</span> menu
+                </button>
             </div>
         </div>
+        <nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+            <div class="mobile-menu-inner">
+                <a href="#about">about</a>
+                <a href="#experience">work</a>
+                <a href="#projects">projects</a>
+                <a href="#skills">stack</a>
+                <a href="#contact">contact</a>
+            </div>
+        </nav>
     </div>
 
     <main class="wrap">
@@ -1172,16 +1272,63 @@
         // rotating tagline accents (subtle nerd touch)
         const words = ['systems', 'pipelines', 'interfaces', 'abstractions', 'products'];
         const accent = document.querySelector('h1 .accent');
-        let i = 0;
-        setInterval(() => {
-            i = (i + 1) % words.length;
-            accent.style.opacity = 0;
-            setTimeout(() => {
-                accent.textContent = words[i];
-                accent.style.opacity = 1;
-            }, 220);
-        }, 2600);
-        if (accent) accent.style.transition = 'opacity .2s';
+        if (accent) {
+            // lock width to the widest word to prevent layout shift
+            accent.style.display = 'inline-block';
+            accent.style.textAlign = 'left';
+            accent.style.transition = 'opacity .2s';
+            accent.style.verticalAlign = 'baseline';
+
+            const measure = () => {
+                const probe = document.createElement('span');
+                const cs = getComputedStyle(accent);
+                probe.style.cssText = `
+        position:absolute; visibility:hidden; white-space:nowrap;
+        font: ${cs.font}; letter-spacing: ${cs.letterSpacing};
+        font-weight: ${cs.fontWeight};
+      `;
+                document.body.appendChild(probe);
+                let max = 0;
+                for (const w of words) { probe.textContent = w; max = Math.max(max, probe.getBoundingClientRect().width); }
+                document.body.removeChild(probe);
+                accent.style.minWidth = Math.ceil(max) + 'px';
+            };
+            measure();
+            window.addEventListener('resize', measure);
+
+            let i = 0;
+            setInterval(() => {
+                i = (i + 1) % words.length;
+                accent.style.opacity = 0;
+                setTimeout(() => {
+                    accent.textContent = words[i];
+                    accent.style.opacity = 1;
+                }, 220);
+            }, 2600);
+        }
+
+        // mobile menu toggle
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navIcon = document.getElementById('navIcon');
+        if (navToggle && mobileMenu) {
+            const setOpen = (open) => {
+                mobileMenu.classList.toggle('open', open);
+                navToggle.setAttribute('aria-expanded', String(open));
+                mobileMenu.setAttribute('aria-hidden', String(!open));
+                if (navIcon) navIcon.textContent = open ? '×' : '+';
+            };
+            navToggle.addEventListener('click', () => {
+                setOpen(!mobileMenu.classList.contains('open'));
+            });
+            mobileMenu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => setOpen(false));
+            });
+            // close on resize up to desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 720) setOpen(false);
+            });
+        }
 
         // easter egg: konami → green matrix flash
         let seq = [], code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
