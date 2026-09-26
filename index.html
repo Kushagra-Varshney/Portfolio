@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>kushagra.varshney — swe / systems / ai</title>
     <meta name="description"
-        content="Kushagra Varshney — Software Engineer II at Unifers.ai, building the core contact-intelligence platform: enrichment pipelines, public APIs, the LinkedIn extension, deliverability infra and AI agents." />
+        content="Kushagra Varshney — Software Engineer II at Unifers.ai. I own backend systems end to end, from design doc to production: agentic AI platforms, workflow engines and distributed services built to stay correct under load." />
     <meta name="theme-color" content="#0b0d10" />
     <meta name="author" content="Kushagra Varshney" />
 
@@ -21,7 +21,7 @@
     <meta property="og:type" content="profile" />
     <meta property="og:title" content="kushagra.varshney — swe / systems / ai" />
     <meta property="og:description"
-        content="Software Engineer II at Unifers.ai — building the core contact-intelligence platform: enrichment pipelines, public APIs, the LinkedIn extension, deliverability infra and AI agents." />
+        content="Software Engineer II at Unifers.ai. I own backend systems end to end, from design doc to production: agentic AI platforms, workflow engines and distributed services built to stay correct under load." />
     <meta name="twitter:card" content="summary" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -338,10 +338,14 @@
             margin-top: 32px;
             border-top: 1px dashed var(--line-2);
             padding-top: 28px;
+            container-type: inline-size;
         }
 
+        /* headline + tagline are sized as a fraction of the column (42px / 16px at its 916px max), so the
+           block scales as one piece: the size changes, the line breaks never do */
         h1 {
-            font-size: clamp(28px, 4.5vw, 42px);
+            font-size: 42px;
+            font-size: clamp(26px, 4.585cqi, 42px);
             font-weight: 700;
             letter-spacing: -0.02em;
             color: var(--fg);
@@ -350,6 +354,7 @@
 
         h1 .line {
             display: block;
+            white-space: nowrap;
         }
 
         h1 .accent {
@@ -364,10 +369,11 @@
         }
 
         .tagline {
-            margin-top: 10px;
+            margin-top: 16px;
             color: var(--fg-dim);
-            font-size: 14px;
-            max-width: 640px;
+            font-size: 16px;
+            font-size: clamp(11px, 1.746cqi, 16px);
+            text-wrap: pretty;
         }
 
         .tagline .hl {
@@ -474,9 +480,9 @@
 
         .about p {
             color: var(--fg-dim);
-            max-width: 720px;
             margin-bottom: 14px;
             font-size: 14px;
+            text-wrap: pretty;
         }
 
         .about p .hl {
@@ -899,8 +905,14 @@
                 gap: 6px;
             }
 
+            /* too narrow to scale as a block — normal wrapping, and the headline shrinks just enough
+               that "i build abstractions" never spills onto a fourth line */
             h1 {
-                font-size: 26px;
+                font-size: min(26px, 7.4cqi);
+            }
+
+            .tagline {
+                font-size: 14px;
             }
 
             .cta-row .btn {
@@ -1312,8 +1324,8 @@
                             unifers.ai</span></div>
                     <div><span class="k">location</span><span class="sep"> :: </span><span class="v">noida, india</span>
                     </div>
-                    <div><span class="k">focus</span><span class="sep"> :: </span><span class="v">contact intelligence ·
-                            deliverability infra · ai agents</span></div>
+                    <div><span class="k">focus</span><span class="sep"> :: </span><span class="v">agentic ai · distributed
+                            systems · reliability at scale</span></div>
                     <div><span class="k">uptime</span><span class="sep"> :: </span><span class="v">shipping since
                             2020</span></div>
                     <div><span class="k">cgpa</span><span class="sep"> :: </span><span class="v">9.45 / 10 · b.tech
@@ -1321,9 +1333,9 @@
                     <div style="margin-top:8px;">
                         <span class="k">languages</span><span class="sep"> :: </span>
                         <span class="v">
-                            <span class="pill">ts</span><span class="pill">js</span><span
-                                class="pill">python</span><span class="pill">c++</span><span
-                                class="pill">sql</span><span class="pill">kotlin</span>
+                            <span class="pill">go</span><span class="pill">ts</span><span
+                                class="pill">python</span><span class="pill">sql</span><span
+                                class="pill">c++</span><span class="pill">js</span>
                         </span>
                     </div>
                 </div>
@@ -1337,10 +1349,10 @@
                     <span class="line">that don't fall over.</span>
                 </h1>
                 <p class="tagline">
-                    SDE-II at <span class="hl">Unifers.ai</span>, building the core contact-intelligence platform —
-                    the enrichment engine behind 350M+ profiles, the public APIs & SDKs, the LinkedIn Chrome extension,
-                    the email-deliverability stack, and the agent/MCP layer on top of it. I care about clean
-                    abstractions, small blast radii, and interfaces that don't make engineers cry.
+                    SDE-II at <span class="hl">Unifers.ai</span>, where I own backend systems end to end — from the
+                    design doc to production. Lately that means agentic AI platforms, workflow engines and distributed
+                    services built to stay correct under load. I care about clean abstractions, small blast radii, and
+                    interfaces that don't make engineers cry.
                 </p>
 
                 <div class="cta-row">
@@ -1365,17 +1377,16 @@
             <p>
                 I'm a <span class="hl">software engineer</span> who lives closer to the backend but refuses to leave the
                 frontend behind.
-                Most of my day is spent somewhere between <span class="g">Next.js</span>, <span
-                    class="g">FastAPI</span>,
-                <span class="g">Kafka</span> topics, and a slightly-too-clever <span class="b">Postgres</span> query.
+                Most of my day is spent somewhere between <span class="g">Go</span>, <span
+                    class="g">TypeScript</span>,
+                <span class="g">LLM tool calls</span>, and a slightly-too-clever <span class="b">Postgres</span> query.
             </p>
             <p>
-                Right now I'm at <span class="hl">Unifers.ai</span>, building the core product end to end: a waterfall
-                enrichment engine over a 350M+ contact graph, the <span class="g">public REST API + SDKs</span> other
-                teams
-                build on, the <span class="g">Chrome extension</span> that surfaces it inside LinkedIn, the
-                <span class="b">deliverability</span> infrastructure that keeps sends out of spam, and the agent / MCP
-                layer that makes all of it callable by an LLM.
+                Right now I'm at <span class="hl">Unifers.ai</span>, where I own the <span class="g">MCP platform</span>
+                that lets AI agents prospect and run outreach securely as the signed-in user, and designed the two <span class="b">Go</span> services that do the sending: a
+                horizontally scalable <span class="b">email-warmup engine</span>, and a
+                <span class="b">workflow engine</span> that walks every contact through its own campaign graph across
+                email, LinkedIn and WhatsApp.
             </p>
             <p>
                 I like problems where <span class="hl">scale</span>, <span class="hl">correctness</span> and <span
@@ -1411,29 +1422,33 @@
                     <div class="exp-company">Unifers.ai <span class="loc">· Noida, UP</span></div>
                     <p class="exp-summary">
                         Building the core product — an all-in-one platform for sales discovery and outreach automation.
+                        I own the agentic AI platform, designed and built both Go execution services, and ship
+                        across the React web app, the LinkedIn extension and the admin panel.
                     </p>
                     <ul class="exp-bullets">
-                        <li><b>Enrichment Engine:</b> waterfall contact-resolution pipeline over a <span
-                                class="metric">350M+ profile</span> graph — multi-source reconciliation, real-time SMTP
-                            validation and per-record confidence scoring, backing 99% email coverage with near-zero
-                            bounce.</li>
-                        <li><b>Public API &amp; SDKs:</b> REST enrichment API (<code>POST
-                                /client-apis/people/enrich/linkedin</code>) with API-key auth, async webhook jobs,
-                            OpenAPI spec, sandbox env and Python / Node / Go / Java SDKs — <span class="metric">~650ms
-                                avg response, 99.9% uptime</span>.</li>
-                        <li><b>Chrome Extension:</b> LinkedIn extension for one-click email &amp; phone reveal, contact
-                            enrichment, CRM push (Salesforce / HubSpot) and sequence launch without leaving the tab —
-                            <span class="metric">50k+ installs, 4.9★</span>.
-                        </li>
-                        <li><b>Deliverability Infra:</b> waterfall send routing across providers with automatic
-                            failover, AI warm-up, managed SPF / DKIM / DMARC, dynamic IP throttling and monitoring
-                            across <span class="metric">150+ blacklists</span> — 99% inbox placement at 100k+
-                            emails/month.</li>
-                        <li><b>Agents &amp; MCP:</b> shipping Unifers Agent and an MCP server that expose the
-                            enrichment + outreach stack as LLM-callable tools, so agents can prospect, enrich and
-                            sequence autonomously.</li>
-                        <li><b>Integrations:</b> 30+ connectors (Salesforce, HubSpot, Slack, Zoho, Pipedrive, OpenAI)
-                            over an event-driven, multi-tenant core.</li>
+                        <li><b>Agentic Platform (MCP):</b> own the Unifers MCP server that lets Claude, ChatGPT,
+                            Cursor and other agents prospect, enrich and run campaigns through model-callable tools —
+                            redesigned the tool surface around user tasks instead of API endpoints
+                            (<span class="metric">33 → 18 tools</span>) and built its OAuth 2.1 authorization end to
+                            end, so agents act strictly with the signed-in user's permissions.</li>
+                        <li><b>Agent Safety &amp; Evals:</b> human-in-the-loop confirmations before any action that
+                            spends credits or sends messages, and a PII-redacted tool-call log feeding an evaluation
+                            harness that measures how reliably models pick the right tool with the right arguments.</li>
+                        <li><b>Email Warmup Engine (Go):</b> designed and built <i>Mandarin</i> end to end — leader
+                            election and distributed locking for exactly-once scheduling across horizontally scaled
+                            workers, pluggable multi-provider mail transports, and fully config-driven, versioned warmup
+                            programs. Graduation is gated by an independent deliverability measurement, and invariants
+                            are enforced through guardrail, load and chaos testing — <span class="metric">scales
+                                horizontally, load-tested at 500K sends/day</span>.</li>
+                        <li><b>Campaign Workflow Engine (Go):</b> re-architected campaign execution from a Node job
+                            queue into <i>EDITH</i>, a Go + RabbitMQ workflow engine where every contact moves through
+                            its own versioned workflow — delays, engagement-based branching, stop-on-reply — across
+                            email, LinkedIn and WhatsApp, with durable cancellable scheduling, per-mailbox rate limiting
+                            and a pluggable step architecture across <span class="metric">7 providers, 3
+                                channels</span>.</li>
+                        <li><b>Enrichment &amp; Public API:</b> dynamic multi-provider enrichment waterfall with
+                            merging, deduplication, rate limiting and per-provider cost tracking, exposed as a
+                            documented public API.</li>
                     </ul>
                 </div>
             </div>
@@ -1447,23 +1462,23 @@
                     <div class="exp-role">Software Development Engineer — I</div>
                     <div class="exp-company">Credflow <span class="loc">· Noida, UP</span></div>
                     <ul class="exp-bullets">
-                        <li><b>Multi-Tenant Migration:</b> led migration from single-tenant → isolated-DB-per-org;
-                            tenant-aware routing, JWT context propagation, connection pooling — scaled to enterprise
-                            readiness.</li>
-                        <li><b>AI-Driven RM LOS:</b> automated document classification via Kafka pipelines + LangGraph
-                            over Vertex AI; real-time tagging & workflow automation, <span class="metric">-60% manual RM
-                                intervention</span>.</li>
+                        <li><b>LangGraph Document Agent:</b> agentic pipeline on Vertex AI that consumes documents
+                            from Kafka, auto-classifies them and extracts type-specific structured fields — replacing
+                            manual upload workflows, <span class="metric">-60% manual RM intervention</span>.</li>
                         <li><b>AI Underwriting Platform:</b> Kafka-streamed analytics over bureau data, balance sheets,
                             GSTR-3B filings — automated insights <span class="metric">cut underwriting time
                                 20-30%</span>.</li>
-                        <li><b>Internal LOS Panel:</b> rebuilt in Next.js + TS with role-based workflows, server-driven
-                            rendering, Redis-backed caching over Postgres + Mongo — <span class="metric">+30% RM
-                                efficiency</span>.</li>
+                        <li><b>Multi-Tenant Migration:</b> led migration from single-tenant → isolated-DB-per-org;
+                            tenant-aware routing, JWT context propagation, connection pooling — scaled to enterprise
+                            readiness.</li>
+                        <li><b>Realtime Notifications:</b> WebSocket notification service fanned out over Kafka +
+                            Redis Pub/Sub.</li>
                         <li><b>Document Automation:</b> FastAPI microservice for OCR agreement gen, ingestion, Excel
                             report automation via async workflows — <span class="metric">-40% processing time, 100+
                                 hrs/mo saved</span>.</li>
-                        <li><b>Legacy Modernization:</b> migrated legacy panels to Next.js / React stack for
-                            maintainability and dev velocity.</li>
+                        <li><b>Internal LOS Panel:</b> migrated legacy panels to Next.js + TS with role-based
+                            workflows, server-driven rendering, Redis-backed caching over Postgres + Mongo —
+                            <span class="metric">+30% RM efficiency</span>.</li>
                     </ul>
                 </div>
             </div>
@@ -1601,30 +1616,48 @@
 
             <div class="skills-grid">
                 <div class="skill-block">
+                    <div class="skill-title"><span class="hash">#</span>ai &amp; agents</div>
+                    <div class="skill-list">
+                        <span class="chip">LLM Apps</span>
+                        <span class="chip">Agentic Workflows</span>
+                        <span class="chip">MCP</span>
+                        <span class="chip">LangChain</span>
+                        <span class="chip">LangGraph</span>
+                        <span class="chip">RAG</span>
+                        <span class="chip">Embeddings</span>
+                        <span class="chip">Vector Search</span>
+                        <span class="chip">Tool Calling</span>
+                        <span class="chip">Structured Outputs</span>
+                        <span class="chip">Prompt Engineering</span>
+                        <span class="chip">Agent Evals</span>
+                        <span class="chip">OpenAI / Anthropic / Gemini</span>
+                        <span class="chip">Vertex AI</span>
+                    </div>
+                </div>
+
+                <div class="skill-block">
                     <div class="skill-title"><span class="hash">#</span>languages</div>
                     <div class="skill-list">
+                        <span class="chip">Go</span>
                         <span class="chip">TypeScript</span>
-                        <span class="chip">JavaScript</span>
                         <span class="chip">Python</span>
-                        <span class="chip">C/C++</span>
+                        <span class="chip">JavaScript</span>
                         <span class="chip">SQL</span>
-                        <span class="chip">Kotlin</span>
+                        <span class="chip">C/C++</span>
                         <span class="chip">Java</span>
-                        <span class="chip">HTML/CSS</span>
+                        <span class="chip">Kotlin</span>
                     </div>
                 </div>
 
                 <div class="skill-block">
                     <div class="skill-title"><span class="hash">#</span>frameworks</div>
                     <div class="skill-list">
-                        <span class="chip">Next.js</span>
-                        <span class="chip">React</span>
                         <span class="chip">Node.js</span>
                         <span class="chip">Express</span>
+                        <span class="chip">Next.js</span>
+                        <span class="chip">React</span>
                         <span class="chip">FastAPI</span>
-                        <span class="chip">LangChain</span>
-                        <span class="chip">LangGraph</span>
-                        <span class="chip">MCP</span>
+                        <span class="chip">pgx / sqlc</span>
                         <span class="chip">Chrome Ext (MV3)</span>
                     </div>
                 </div>
@@ -1635,21 +1668,25 @@
                         <span class="chip">Docker</span>
                         <span class="chip">Kubernetes</span>
                         <span class="chip">Kafka</span>
+                        <span class="chip">RabbitMQ</span>
                         <span class="chip">AWS</span>
                         <span class="chip">GitLab CI/CD</span>
+                        <span class="chip">OpenTelemetry</span>
+                        <span class="chip">SigNoz</span>
                         <span class="chip">Git</span>
                         <span class="chip">Vim</span>
                     </div>
                 </div>
 
                 <div class="skill-block">
-                    <div class="skill-title"><span class="hash">#</span>data &amp; email infra</div>
+                    <div class="skill-title"><span class="hash">#</span>email &amp; messaging</div>
                     <div class="skill-list">
-                        <span class="chip">Enrichment Pipelines</span>
-                        <span class="chip">Entity Resolution</span>
-                        <span class="chip">SMTP Validation</span>
+                        <span class="chip">Gmail API</span>
+                        <span class="chip">MS Graph</span>
+                        <span class="chip">SMTP / IMAP</span>
                         <span class="chip">SPF/DKIM/DMARC</span>
                         <span class="chip">Deliverability</span>
+                        <span class="chip">Enrichment Pipelines</span>
                         <span class="chip">Webhooks</span>
                         <span class="chip">OpenAPI</span>
                     </div>
@@ -1668,13 +1705,16 @@
                     <div class="skill-title"><span class="hash">#</span>architecture</div>
                     <div class="skill-list">
                         <span class="chip">Microservices</span>
-                        <span class="chip">Multi-Tenant</span>
                         <span class="chip">Event-Driven</span>
-                        <span class="chip">Async Processing</span>
-                        <span class="chip">Caching</span>
+                        <span class="chip">Workflow Engines</span>
+                        <span class="chip">State Machines</span>
+                        <span class="chip">Leader Election</span>
+                        <span class="chip">Transactional Outbox</span>
+                        <span class="chip">Multi-Tenant</span>
                         <span class="chip">Idempotency</span>
-                        <span class="chip">JWT Auth</span>
+                        <span class="chip">OAuth 2.1</span>
                         <span class="chip">Rate Limiting</span>
+                        <span class="chip">Caching</span>
                         <span class="chip">API Design</span>
                     </div>
                 </div>
@@ -1780,7 +1820,7 @@
             const caret = document.getElementById('typeCaret');
             if (!text || !caret) return;
 
-            const words = ['systems', 'pipelines', 'interfaces', 'abstractions', 'products'];
+            const words = ['agents', 'systems', 'pipelines', 'interfaces', 'abstractions'];
 
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 text.textContent = words[0];
@@ -2007,19 +2047,18 @@
                 },
                 whoami: () => {
                     print('<span class="ok">kushagra varshney</span> — software engineer II @ unifers.ai · noida, india');
-                    print('<span class="dim">building contact-intelligence infra: enrichment, apis, extension, deliverability, agents.</span>');
+                    print('<span class="dim">owns backend systems end to end — agentic ai platforms, workflow engines, distributed services.</span>');
                     print('<span class="muted">try <span class="ok">unifers</span> for what i actually ship day to day.</span>');
                 },
                 unifers: () => {
                     print('<span class="ok">// unifers.ai</span> <span class="dim">— all-in-one platform for sales discovery &amp; outreach automation</span>');
                     printGrid([
-                        ['enrichment', 'waterfall resolution over 350M+ profiles · smtp validation · confidence scoring'],
-                        ['apis + sdks', 'REST enrichment api · webhooks · openapi · python / node / go / java'],
-                        ['extension', 'linkedin chrome extension · 1-click email + phone · crm push · sequences'],
-                        ['deliverability', 'waterfall routing · ai warm-up · spf/dkim/dmarc · 150+ blacklist monitors'],
-                        ['agents', '<span class="warn">[shipping]</span> unifers agent + mcp server — llm-callable outreach stack'],
+                        ['mcp', 'agent-facing tool server · 33 → 18 task-shaped tools · oauth 2.1 · tool-choice evals'],
+                        ['mandarin', 'go warmup engine · distributed scheduling · scales horizontally'],
+                        ['edith', 'go + rabbitmq workflow engine · per-contact graphs · email / linkedin / whatsapp'],
+                        ['enrichment', 'dynamic multi-provider waterfall · dedupe · public api + openapi'],
                     ]);
-                    print('<span class="muted">→ <a href="https://unifers.ai" target="_blank" rel="noopener">unifers.ai</a> · i work across all five.</span>');
+                    print('<span class="muted">→ <a href="https://unifers.ai" target="_blank" rel="noopener">unifers.ai</a> · scroll to <span class="ok">work</span> for the detail.</span>');
                 },
                 about: () => {
                     print('<span class="info">→ scrolling to // about</span>');
@@ -2052,11 +2091,12 @@
                 stack: () => {
                     print('<span class="ok">// stack</span>');
                     printGrid([
-                        ['languages', 'TypeScript · JavaScript · Python · C/C++ · SQL · Kotlin · Java'],
-                        ['frameworks', 'Next.js · React · Node · Express · FastAPI · LangChain · LangGraph'],
-                        ['infra', 'Docker · Kubernetes · Kafka · AWS · GitLab CI/CD · Git'],
+                        ['ai', 'MCP · LangChain · LangGraph · RAG · tool calling · structured outputs · agent evals'],
+                        ['languages', 'Go · TypeScript · Python · JavaScript · SQL · C/C++ · Java · Kotlin'],
+                        ['frameworks', 'Node · Express · Next.js · React · FastAPI · pgx / sqlc'],
+                        ['infra', 'Docker · Kubernetes · Kafka · RabbitMQ · AWS · OpenTelemetry · GitLab CI/CD'],
                         ['databases', 'PostgreSQL · MongoDB · Redis'],
-                        ['arch', 'microservices · multi-tenant · event-driven · async · caching · idempotency'],
+                        ['arch', 'event-driven · workflow engines · leader election · outbox · multi-tenant · oauth 2.1'],
                     ]);
                     setTimeout(() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' }), 200);
                 },
@@ -2083,7 +2123,7 @@
                         'about.md': () => {
                             print('<span class="ok"># about</span>');
                             print('software engineer who lives closer to the backend but refuses to leave the frontend behind.');
-                            print('between Next.js, FastAPI, Kafka topics, and a slightly-too-clever Postgres query.');
+                            print('between Go, TypeScript, LLM tool calls, and a slightly-too-clever Postgres query.');
                             print('currently building the core product at unifers.ai — try <span class="ok">unifers</span>.');
                             print('<span class="dim">cares about: scale, correctness, dev experience, small blast radii.</span>');
                         },
